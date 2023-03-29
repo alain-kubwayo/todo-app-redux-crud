@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import CreateTodo from "./components/CreateTodo";
+import SingleTodo from "./components/SingleTodo";
+import Title from "./components/Title";
+import { useSelector } from "react-redux";
 
 function App() {
+  const todos = useSelector(state => state.todos.value)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-2/3 px-4 mx-auto md:w-1/2 sm:px-8 lg:px-16">
+      <Title title="todos" />
+      <CreateTodo />
+      <div className="my-10">
+        {todos.length > 0 ? todos.map(todo => <SingleTodo key={todo.id} {...todo} />): <div>You are all caught up for now! 🏆</div>}
+      </div>
     </div>
   );
 }
